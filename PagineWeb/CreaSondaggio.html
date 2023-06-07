@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crea Sondaggio</title>
+</head>
+
+<body>
+  <!-- Intestazione della pagina -->
+  <h1>Crea Sondaggio</h1>
+
+  <!-- Menù di selezione -->
+  <label for="tipoSondaggio">Tipologia Sondaggio:</label>
+  <select id="tipoSondaggio">
+    <option value="opzione1">Opzione 1</option>
+    <option value="opzione2">Opzione 2</option>
+    <option value="opzione3">Opzione 3</option>
+  </select>
+
+  <!-- Bottoni per le domande -->
+  <button onclick="showDomandaApertaForm()">Domanda Aperta</button>
+  <button onclick="showDomandaChiusaForm()">Domanda Chiusa</button>
+
+  <!-- Form per la domanda aperta (inizialmente nascosto) -->
+  <div id="domandaApertaForm" style="display: none;">
+    <h2>Domanda Aperta</h2>
+    <form>
+      <label for="domandaAperta">Inserisci la domanda:</label>
+      <input type="text" id="domandaAperta" name="domandaAperta">
+      <br>
+      <input type="submit" value="Aggiungi Domanda">
+    </form>
+  </div>
+
+  <!-- Form per la domanda chiusa (inizialmente nascosto) -->
+  <div id="domandaChiusaForm" style="display: none;">
+    <h2>Domanda Chiusa</h2>
+    <form>
+      <label for="domandaChiusa">Inserisci la domanda:</label>
+      <input type="text" id="domandaChiusa" name="domandaChiusa">
+      <br>
+      <label for="opzioni">Inserisci le opzioni (separate da virgola):</label>
+      <input type="text" id="opzioni" name="opzioni">
+      <br>
+      <input type="submit" value="Aggiungi Domanda">
+    </form>
+  </div>
+
+  <!-- Script JavaScript per mostrare/nascondere i form -->
+  <script>
+    function showDomandaApertaForm() {
+      document.getElementById("domandaApertaForm").style.display = "block";
+      document.getElementById("domandaChiusaForm").style.display = "none";
+    }
+
+    function showDomandaChiusaForm() {
+      document.getElementById("domandaApertaForm").style.display = "none";
+      document.getElementById("domandaChiusaForm").style.display = "block";
+    }
+  </script>
+</body>
+
+</html>
