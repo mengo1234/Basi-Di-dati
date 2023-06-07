@@ -1,46 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="CssApplicativoWeb.css">
-
+    <link rel="stylesheet" href="Home.css">
 	<title>Applicativo Web</title>
-	<style>
-		/* Stili per il menù di selezione */
-		#menu {
-			float: right;
-		}
-		
-		#menu select {
-			width: 150px;
-			height: 30px;
-			font-size: 16px;
-		}
-		
-		/* Stili per il contenitore della tabella */
-		#table-container {
-			width: 400px;
-			height: 300px;
-			overflow: auto;
-			border: 1px solid #ccc;
-			margin: 20px auto;
-			padding: 10px;
-		}
-		
-		table {
-			width: 100%;
-			border-collapse: collapse;
-		}
-		
-		th, td {
-			border: 1px solid #ccc;
-			padding: 8px;
-		}
-		
-		th {
-			background-color: #f2f2f2;
-		}
-		
-	</style>
 </head>
 <body>
 	<!-- Menù di selezione -->
@@ -94,7 +56,7 @@
 			switch (selectedOption) {
 				case "login-register":
 					// Effettua il redirect alla pagina di accesso/registrazione
-					window.location.href = "login-register.html";
+					window.location.href = "PagineWeb/AccediRegistrati.html";
 					break;
 				case "profile":
 					// Effettua il redirect alla pagina del profilo utente
@@ -106,7 +68,7 @@
 					break;
 				case "Crea Sondaggio":
 					// Effettua il redirect alla pagina per creare un quiz
-					window.location.href = "pagine web/Crea Sondaggio.html";
+					window.location.href = "PagineWeb/CreaSondaggio.html";
 					break;
 			}
 		}

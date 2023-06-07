@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSSPagineWeb/CreaSondaggio.css">
   <title>Crea Sondaggio</title>
 </head>
 
@@ -27,10 +28,21 @@
   <div id="domandaApertaForm" style="display: none;">
     <h2>Domanda Aperta</h2>
     <form>
-      <label for="domandaAperta">Inserisci la domanda:</label>
-      <input type="text" id="domandaAperta" name="domandaAperta">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id">
+      <br>
+      <label for="testo">Testo:</label>
+      <input type="text" id="testo" name="testo">
+      <br>
+      <label for="punteggio">Punteggio:</label>
+      <input type="text" id="punteggio" name="punteggio">
+      <br>
+      <label for="file">Carica un file:</label>
+      <input type="file" id="file" name="file">
       <br>
       <input type="submit" value="Aggiungi Domanda">
+      <br>
+      <button type="button">CREA</button>
     </form>
   </div>
 
@@ -38,13 +50,27 @@
   <div id="domandaChiusaForm" style="display: none;">
     <h2>Domanda Chiusa</h2>
     <form>
-      <label for="domandaChiusa">Inserisci la domanda:</label>
-      <input type="text" id="domandaChiusa" name="domandaChiusa">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id">
       <br>
-      <label for="opzioni">Inserisci le opzioni (separate da virgola):</label>
-      <input type="text" id="opzioni" name="opzioni">
+      <label for="testo">Testo:</label>
+      <input type="text" id="testo" name="testo">
+      <br>
+      <label for="punteggio">Punteggio:</label>
+      <input type="text" id="punteggio" name="punteggio">
+      <br>
+      <label for="opzioneA">Opzione A:</label>
+      <input type="text" id="opzioneA" name="opzioneA">
+      <br>
+      <label for="opzioneB">Opzione B:</label>
+      <input type="text" id="opzioneB" name="opzioneB">
+      <br>
+      <label for="opzioneC">Opzione C:</label>
+      <input type="text" id="opzioneC" name="opzioneC">
       <br>
       <input type="submit" value="Aggiungi Domanda">
+      <br>
+      <button type="button">CREA</button>
     </form>
   </div>
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSSPagineWeb/AccediRegistrati.css">
+  <title>Accedi/Registrati</title>
+</head>
+
+<body>
+  <h1>Accedi/Registrati</h1>
+
+  <div class="button-container">
+    <button onclick="showLoginForm()">Accedi</button>
+    <button onclick="showRegistrationForm()">Registrati</button>
+  </div>
+
+  <div class="form-container">
+    <form id="loginForm" style="display: none;">
+      <h2>Accedi</h2>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+
+      <label for="password">Password:</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password">
+        <i class="fas fa-eye" id="showPassword"></i>
+      </div>
+
+      <input type="submit" value="Accedi">
+    </form>
+
+    <form id="registrationForm" style="display: none;">
+      <h2>Registrati</h2>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+
+      <label for="password">Password:</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password">
+        <i class="fas fa-eye" id="showPassword"></i>
+      </div>
+
+      <input type="submit" value="Registrati">
+    </form>
+  </div>
+
+  <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+  <script src="AccediRegistrati.js"></script>
+</body>
+
+</html>
