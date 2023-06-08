@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Home.css">
+	<title>Applicativo Web</title>
+</head>
+<body>
+	<!-- Menù di selezione -->
+	<div id="menu">
+		<select onchange="navigate()">
+			<option value="login-register">Accedi/Registrati</option>
+			<option value="profile">Profilo</option>
+			<option value="quiz">Partecipa a un QUIZ</option>
+			<option value="Crea Sondaggio">Crea un Quiz</option>
+		</select>
+	</div>
+
+	<!-- Titolo e contenitore della tabella -->
+	<h1>WALL OF FAME</h1>
+	<div id="table-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Posizione</th>
+					<th>Nome</th>
+					<th>Punteggio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Giuseppe</td>
+					<td>100</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Maria</td>
+					<td>95</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Luigi</td>
+					<td>90</td>
+				</tr>
+				<!-- Aggiungi altre righe della tabella qui -->
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		function navigate() {
+			var select = document.getElementById("menu").getElementsByTagName("select")[0];
+			var selectedOption = select.options[select.selectedIndex].value;
+
+			// Effettua la navigazione in base all'opzione selezionata
+			switch (selectedOption) {
+				case "login-register":
+					// Effettua il redirect alla pagina di accesso/registrazione
+					window.location.href = "PagineWeb/AccediRegistrati.html";
+					break;
+				case "profile":
+					// Effettua il redirect alla pagina del profilo utente
+					window.location.href = "PagineWeb/Profilo.html";
+					break;
+				case "quiz":
+					// Effettua il redirect alla pagina per partecipare a un quiz
+					window.location.href = "PagineWeb/PartecipaSondaggio.html";
+					break;
+				case "Crea Sondaggio":
+					// Effettua il redirect alla pagina per creare un quiz
+					window.location.href = "PagineWeb/CreaSondaggio.html";
+					break;
+			}
+		}
+	</script>
+</body>
+</html>

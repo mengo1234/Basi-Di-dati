@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="C:\Users\Administrator\Desktop\Basi-Di-dati\CSSPagineWeb\PartecipaSondaggio.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <title>Partecipa a sondaggio</title>
+</head>
+
+<body>
+   <!-- freccia di ritorno -->
+   <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> </a>
+    
+  <!-- Intestazione della pagina -->
+  <h1>Partecipa a sondaggio</h1>
+
+  <!-- Selezione della tipologia -->
+  <label for="tipologiaSondaggio">Scegli la tipologia:</label>
+  <select id="tipologiaSondaggio">
+    <option value="tipologia1">Tipologia 1</option>
+    <option value="tipologia2">Tipologia 2</option>
+    <option value="tipologia3">Tipologia 3</option>
+  </select>
+
+  <!-- Bottone "GIOCA!" -->
+  <button id="giocaButton">GIOCA!</button>
+
+  <!-- Form del quiz (inizialmente nascosto) -->
+  <div id="quizForm" style="display: none;">
+    <h2>Quiz</h2>
+    <form>
+      <!-- Domanda -->
+      <label for="domanda">Domanda:</label>
+      <p id="domanda">Questa è la domanda del sondaggio.</p>
+      <br>
+      <!-- Opzioni di risposta -->
+      <input type="radio" id="opzione1" name="risposta" value="opzione1">
+      <label for="opzione1">Opzione 1</label>
+      <br>
+      <input type="radio" id="opzione2" name="risposta" value="opzione2">
+      <label for="opzione2">Opzione 2</label>
+      <br>
+      <input type="radio" id="opzione3" name="risposta" value="opzione3">
+      <label for="opzione3">Opzione 3</label>
+      <br>
+      <!-- Pulsante di invio risposta -->
+      <input type="submit" value="Invia Risposta">
+    </form>
+  </div>
+
+  <!-- Script JavaScript per mostrare il form del quiz -->
+  <script>
+    // Aggiungiamo un evento al clic del bottone "GIOCA!"
+    document.getElementById("giocaButton").addEventListener("click", function() {
+      // Al clic, visualizziamo il form del quiz
+      document.getElementById("quizForm").style.display = "block";
+    });
+  </script>
+</body>
+
+</html>

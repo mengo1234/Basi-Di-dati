@@ -1,0 +1,2 @@
+1) Il CSS CreaSondaggio non viene applicato all'omonima pagina 
+commento prova
