@@ -256,10 +256,11 @@ DELIMITER ;
 DELIMITER//
 
 CREATE PROCEDURE CreazioneDomandaAperta (
+    IN p_dominio VARCHAR(255),
+    IN p-codice INT,
     IN p_testo TEXT,
     IN p_punteggio INT,
     IN p_foto VARCHAR(255),
-    IN p_risposta TEXT
 )
 BEGIN
     -- Inserimento della domanda nella tabella Domanda
@@ -269,7 +270,9 @@ BEGIN
     SET @new_domandaID = LAST_INSERT_ID();
     
     -- Inserimento della domanda aperta nella tabella Aperta
-    INSERT INTO Aperta (id, risposta) VALUES (@new_domanda_ID, p_risposta);
+    INSERT INTO Aperta (id,) VALUES (@new_domanda_ID,);
+
+    INSERT INTO Contenuto (dominio, codice, id) VALUES (p_dominio, p_codice, @new_domandaID);
     
     -- Restituzione dell'ID della domanda appena creata
     SELECT @new_domandaID AS new_domandaID;
@@ -278,44 +281,41 @@ END //
 DELIMITER;
 
     /*INSERIMENTO DOMANDA CHIUSA*/
-
 DELIMITER //
 
 CREATE PROCEDURE CreazioneDomandaChiusa (
+    IN p_dominio VARCHAR(255),
+    IN p-codice INT,
     IN p_testo VARCHAR(255),
     IN p_punteggio INT,
     IN p_foto VARCHAR(255),
-    IN p_testo_opzione VARCHAR(255)
+    IN p_testo_opzione1 VARCHAR(255),
+    IN p_testo_opzione2 VARCHAR(255),
+    IN p_testo_opzione3 VARCHAR(255)
 )
 BEGIN
     DECLARE v_domanda_id INT;
-    DECLARE v_num_opzioni INT;
-
+    
     -- Inserimento dei dati nella tabella Domanda
     INSERT INTO Domanda (testo, punteggio, foto)
     VALUES (p_testo, p_punteggio, p_foto);
 
-    -- Recupero dell'ID dell'ultima domanda inserita
-    SET v_domanda_id = LAST_INSERT_ID();
+    -- Recupero dell'ID della domanda appena creata
+    SET @new_domandaID = LAST_INSERT_ID();
 
-    -- Conteggio delle opzioni associate alla domanda corrente
-    SELECT COUNT(*) INTO v_num_opzioni
-    FROM Opzione
-    WHERE id = v_domanda_id;
+    -- Inserimento delle opzioni nella tabella Opzione
+    INSERT INTO Opzione (numProgressivo, testo, id)
+    VALUES (1, p_testo_opzione1, v_domanda_id),
+           (2, p_testo_opzione2, v_domanda_id),
+           (3, p_testo_opzione3, v_domanda_id);
 
-    IF v_num_opzioni < 3 THEN
-        -- Inserimento del parametro "testo" nella tabella Opzione
-        INSERT INTO Opzione (numProgressivo, testo, id)
-        VALUES (v_num_opzioni + 1, p_testo_opzione, v_domanda_id);
+    INSERT INTO Contenuto (dominio, codice, id) VALUES (p_dominio, p_codice, @new_domandaID);    
 
-        SELECT v_domanda_id AS new_domanda_id;
-    ELSE
-        -- Gestire l'errore o fornire un feedback all'utente
-        SELECT -1 AS error;
-    END IF;
+    SELECT @new_domanda_ID AS new_domanda_ID;
 END;
 
 DELIMITER ;
+
 
     /*CREAZIONE SONDAGGIO*/
 
