@@ -1,7 +1,7 @@
 /*CREAZIONE STRUTTURA DB*/
 
 -- Creazione del database
-CREATE DATABASE Sondaggi23;
+CREATE DATABASE IF NOT EXISTS Sondaggi23;
 
 -- Seleziona il database
 USE Sondaggi23;
@@ -63,7 +63,7 @@ CREATE TABLE Chiusa (
 );
 
 CREATE TABLE Opzione (
-   id INT PRIMARY KEY AUTO_INCREMENT,
+   idOpzione INT PRIMARY KEY AUTO_INCREMENT,
    numProgressivo INT PRIMARY KEY,
     testo TEXT,
     id INT,
@@ -253,14 +253,14 @@ DELIMITER ;
 
     /*INSERIMENTO DOMANDA APERTA*/
 
-DELIMITER//
+DELIMITER //
 
 CREATE PROCEDURE CreazioneDomandaAperta (
     IN p_dominio VARCHAR(255),
-    IN p-codice INT,
+    IN p_codice INT,
     IN p_testo TEXT,
     IN p_punteggio INT,
-    IN p_foto VARCHAR(255),
+    IN p_foto VARCHAR(255)
 )
 BEGIN
     -- Inserimento della domanda nella tabella Domanda
@@ -270,7 +270,7 @@ BEGIN
     SET @new_domandaID = LAST_INSERT_ID();
     
     -- Inserimento della domanda aperta nella tabella Aperta
-    INSERT INTO Aperta (id,) VALUES (@new_domanda_ID,);
+    INSERT INTO Aperta (id) VALUES (@new_domandaID);
 
     INSERT INTO Contenuto (dominio, codice, id) VALUES (p_dominio, p_codice, @new_domandaID);
     
@@ -278,7 +278,8 @@ BEGIN
     SELECT @new_domandaID AS new_domandaID;
 END //
 
-DELIMITER;
+DELIMITER ;
+
 
     /*INSERIMENTO DOMANDA CHIUSA*/
 DELIMITER //
@@ -304,7 +305,7 @@ BEGIN
     SET @new_domandaID = LAST_INSERT_ID();
 
     -- Inserimento delle opzioni nella tabella Opzione
-    INSERT INTO Opzione (numProgressivo, testo, id)
+    INSERT INTO Opzione (numProgressivo, testo, idOpzione)
     VALUES (1, p_testo_opzione1, v_domanda_id),
            (2, p_testo_opzione2, v_domanda_id),
            (3, p_testo_opzione3, v_domanda_id);
