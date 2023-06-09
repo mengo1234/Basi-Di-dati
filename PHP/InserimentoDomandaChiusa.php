@@ -9,14 +9,13 @@ if ($conn->connect_error) {
 // Verifica se il form è stato sottoposto tramite il metodo POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Acquisizione dei valori forniti dall'utente tramite il metodo POST
-    $id = $_POST['id'];
     $testo = $_POST['testo'];
     $punteggio = $_POST['punteggio'];
     $foto = $_POST['foto'];
     $testo_opzione = $_POST['testo_opzione'];
 
     // Preparazione dello statement
-    $stmt = $conn->prepare("CALL CreazioneDomandaChiusa(?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("CALL CreazioneDomandaChiusa(?, ?, ?, ?)");
 
     // Verifica della preparazione dello statement
     if (!$stmt) {
@@ -25,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Bind dei parametri
-    $stmt->bind_param("issis", $id, $testo, $punteggio, $foto, $testo_opzione);
+    $stmt->bind_param("siss", $testo, $punteggio, $foto, $testo_opzione);
 
         // Esecuzione dello statement
         if ($stmt->execute()) {

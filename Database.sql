@@ -45,7 +45,7 @@ CREATE TABLE Premium (
 );
 
 CREATE TABLE Domanda (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     testo TEXT,
     punteggio INT,
     foto VARCHAR(255)
@@ -63,7 +63,8 @@ CREATE TABLE Chiusa (
 );
 
 CREATE TABLE Opzione (
-    numProgressivo INT PRIMARY KEY,
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   numProgressivo INT PRIMARY KEY,
     testo TEXT,
     id INT,
     FOREIGN KEY (id) REFERENCES Chiusa(id)
@@ -84,7 +85,7 @@ CREATE TABLE Interesse (
 );
 
 CREATE TABLE Sondaggio (
-    codice VARCHAR(255),
+    codice VARCHAR(255) AUTO_INCREMENT,
     Dominio VARCHAR(255),
     descrizione TEXT,
     titolo VARCHAR(255),
@@ -255,7 +256,6 @@ DELIMITER ;
 DELIMITER//
 
 CREATE PROCEDURE CreazioneDomandaAperta (
-    IN p_id INT,
     IN p_testo TEXT,
     IN p_punteggio INT,
     IN p_foto VARCHAR(255),
@@ -263,13 +263,16 @@ CREATE PROCEDURE CreazioneDomandaAperta (
 )
 BEGIN
     -- Inserimento della domanda nella tabella Domanda
-    INSERT INTO Domanda (id, testo, punteggio, foto) VALUES (p_id, p_testo, p_punteggio, p_foto);
+    INSERT INTO Domanda (testo, punteggio, foto) VALUES (p_testo, p_punteggio, p_foto);
+
+    -- Recupero dell'ID della domanda appena creata
+    SET @new_domandaID = LAST_INSERT_ID();
     
     -- Inserimento della domanda aperta nella tabella Aperta
-    INSERT INTO Aperta (id, risposta) VALUES (p_id, p_risposta);
+    INSERT INTO Aperta (id, risposta) VALUES (@new_domanda_ID, p_risposta);
     
     -- Restituzione dell'ID della domanda appena creata
-    SELECT p_id AS new_domandaID;
+    SELECT @new_domandaID AS new_domandaID;
 END //
 
 DELIMITER;
@@ -278,8 +281,7 @@ DELIMITER;
 
 DELIMITER //
 
-CREATE PROCEDURE CreazioneDomandaChiusa(
-    IN p_id INT,
+CREATE PROCEDURE CreazioneDomandaChiusa (
     IN p_testo VARCHAR(255),
     IN p_punteggio INT,
     IN p_foto VARCHAR(255),
@@ -287,20 +289,31 @@ CREATE PROCEDURE CreazioneDomandaChiusa(
 )
 BEGIN
     DECLARE v_domanda_id INT;
+    DECLARE v_num_opzioni INT;
 
     -- Inserimento dei dati nella tabella Domanda
-    INSERT INTO Domanda (id, testo, punteggio, foto)
-    VALUES (p_id, p_testo, p_punteggio, p_foto);
+    INSERT INTO Domanda (testo, punteggio, foto)
+    VALUES (p_testo, p_punteggio, p_foto);
 
     -- Recupero dell'ID dell'ultima domanda inserita
     SET v_domanda_id = LAST_INSERT_ID();
 
-    -- Inserimento del parametro "testo" nella tabella Opzione
-    INSERT INTO Opzione (numProgressivo, testo, Domanda_id)
-    VALUES (1, p_testo_opzione, v_domanda_id);
+    -- Conteggio delle opzioni associate alla domanda corrente
+    SELECT COUNT(*) INTO v_num_opzioni
+    FROM Opzione
+    WHERE id = v_domanda_id;
 
-    SELECT v_domanda_id AS new_domanda_id;
-END //
+    IF v_num_opzioni < 3 THEN
+        -- Inserimento del parametro "testo" nella tabella Opzione
+        INSERT INTO Opzione (numProgressivo, testo, id)
+        VALUES (v_num_opzioni + 1, p_testo_opzione, v_domanda_id);
+
+        SELECT v_domanda_id AS new_domanda_id;
+    ELSE
+        -- Gestire l'errore o fornire un feedback all'utente
+        SELECT -1 AS error;
+    END IF;
+END;
 
 DELIMITER ;
 
@@ -309,7 +322,6 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE CreazioneSondaggio(
-    IN p_codice VARCHAR(255),
     IN p_parolaChiave VARCHAR(255),
     IN p_titolo VARCHAR(255),
     IN p_descrizione TEXT,
@@ -319,8 +331,8 @@ CREATE PROCEDURE CreazioneSondaggio(
     IN p_stato VARCHAR(255)
 )
 BEGIN
-    INSERT INTO Sondaggio (codice, Dominio, titolo, descrizione, dataCreazione, dataChiusura, maxUtenti, stato)
-    VALUES (p_codice, p_parolaChiave, p_titolo, p_descrizione, p_dataCreazione, p_dataChiusura, p_maxUtenti, p_stato);
+    INSERT INTO Sondaggio (Dominio, titolo, descrizione, dataCreazione, dataChiusura, maxUtenti, stato)
+    VALUES (p_parolaChiave, p_titolo, p_descrizione, p_dataCreazione, p_dataChiusura, p_maxUtenti, p_stato);
 END //
 
 DELIMITER ;
