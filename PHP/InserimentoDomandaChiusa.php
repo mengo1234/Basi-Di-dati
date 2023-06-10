@@ -1,6 +1,6 @@
 <?php
 // Connessione al database
-$conn = new mysqli("localhost", "username", "password", "Sondaggi23");
+$conn = new mysqli("localhost", "root", "", "Sondaggi23");
 
 // Verifica della connessione
 if ($conn->connect_error) {
@@ -9,17 +9,14 @@ if ($conn->connect_error) {
 // Verifica se il form è stato sottoposto tramite il metodo POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Acquisizione dei valori forniti dall'utente tramite il metodo POST
-    $dominio = $_POST["dominio"];
-    $codice = $_POST["codice"];
+    $id = $_POST['id'];
     $testo = $_POST['testo'];
     $punteggio = $_POST['punteggio'];
     $foto = $_POST['foto'];
-    $testo_opzione1 = $_POST['testo_opzione1'];
-    $testo_opzione2 = $_POST['testo_opzione3'];
-    $testo_opzione3 = $_POST['testo_opzione3'];
+    $testo_opzione = $_POST['testo_opzione'];
 
     // Preparazione dello statement
-    $stmt = $conn->prepare("CALL CreazioneDomandaChiusa(?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("CALL CreazioneDomandaChiusa(?, ?, ?, ?, ?)");
 
     // Verifica della preparazione dello statement
     if (!$stmt) {
@@ -28,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Bind dei parametri
-    $stmt->bind_param("SIsissss", $dominio, $codice, $testo, $punteggio, $foto, $testo_opzione1, $testo_opzione2, $testo_opzione3);
+    $stmt->bind_param("issis", $id, $testo, $punteggio, $foto, $testo_opzione);
 
         // Esecuzione dello statement
         if ($stmt->execute()) {

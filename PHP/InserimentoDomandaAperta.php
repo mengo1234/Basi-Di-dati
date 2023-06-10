@@ -2,8 +2,8 @@
 
 // Connessione al database
 $servername = "localhost";
-$username = "username";
-$password = "password";
+$username = "root";
+$password = "";
 $dbname = "Sondaggi23";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,11 +15,11 @@ if ($conn->connect_error) {
 // Verifica se il form è stato sottoposto tramite il metodo POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Valori forniti dall'utente
-    $dominio = $_POST["dominio"];
-    $codice = $_POST["codice"];
+    $id = $_POST["id"];
     $testo = $_POST["testo"];
     $punteggio = $_POST["punteggio"];
     $foto = $_POST["foto"];
+    $risposta = $_POST["risposta"];
 
     // Preparazione della query per chiamare la stored procedure
     $query = "CALL CreazioneDomandaAperta(?, ?, ?, ?, ?)";
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt = $conn->prepare($query);
 
     // Bind dei parametri
-    $stmt->bind_param("sisis", $dominio, $codice, $testo, $punteggio, $foto,); /*i ed s sono gli specificatori dei parametri e si riferiscono alle tipologie di parametro in input che seguono se intero o stringa*/ 
+    $stmt->bind_param("isiss", $id, $testo, $punteggio, $foto, $risposta); /*i ed s sono gli specificatori dei parametri e si riferiscono alle tipologie di parametro in input che seguono se intero o stringa*/ 
 
     // Esecuzione dello statement
     $stmt->execute();
