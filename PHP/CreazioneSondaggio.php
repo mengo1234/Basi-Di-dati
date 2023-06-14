@@ -10,7 +10,6 @@ if ($conn->connect_error) {
 // Verifica se il form è stato sottoposto tramite il metodo POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Acquisizione dei valori forniti dall'utente tramite il metodo POST
-    $codice = $_POST['codice'];
     $parolaChiave = $_POST['parolaChiave'];
     $titolo = $_POST['titolo'];
     $descrizione = $_POST['descrizione'];
@@ -20,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stato = $_POST['stato'];
 
     // Creazione dello statement preparato
-    $stmt = $conn->prepare("CALL CreazioneSondaggio(?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("CALL CreazioneSondaggio(?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Preparazione dello statement fallita: " . $conn->error);
     }
 
     // Bind dei parametri dello statement
-    $stmt->bind_param("ssssssis", $codice, $parolaChiave, $titolo, $descrizione, $dataCreazione, $dataChiusura, $maxUtenti, $stato);
+    $stmt->bind_param("sssssis", $parolaChiave, $titolo, $descrizione, $dataCreazione, $dataChiusura, $maxUtenti, $stato);
 
     // Esecuzione dello statement
     if ($stmt->execute()) {

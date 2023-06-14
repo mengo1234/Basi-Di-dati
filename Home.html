@@ -8,6 +8,7 @@
 	<!-- Menù di selezione -->
 	<div id="menu">
 		<select onchange="navigate()">
+			<option value="default"selected>Seleziona</option>
 			<option value="login-register">Accedi/Registrati</option>
 			<option value="profile">Profilo</option>
 			<option value="quiz">Partecipa a un QUIZ</option>
@@ -18,31 +19,52 @@
 	<!-- Titolo e contenitore della tabella -->
 	<h1>WALL OF FAME</h1>
 	<div id="table-container">
+
+		<?php
+		// Connessione al database e esecuzione della query
+		$servername = "localhost";
+		$username = "user";
+		$password = "";
+		$dbname = "Sondaggi23";
+		
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		
+		if ($conn->connect_error) {
+			die("Connessione al database fallita: " . $conn->connect_error);
+		}
+		
+		<!-- Creazione della vista ordinata in base al totBonus decrescente-->
+		$query = "CREATE VIEW VistaUtente AS SELECT * FROM Utente ORDER BY totaleBonus DESC";
+		$result = $conn->query($query);
+	?>
+
 		<table>
 			<thead>
 				<tr>
-					<th>Posizione</th>
 					<th>Nome</th>
-					<th>Punteggio</th>
+					<th>Cognome</th>
+					<th>Luogo diNascita</th>
+					<th>Totale Punti</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Giuseppe</td>
-					<td>100</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Maria</td>
-					<td>95</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Luigi</td>
-					<td>90</td>
-				</tr>
-				<!-- Aggiungi altre righe della tabella qui -->
+				<?php>
+					<!-- Generazione delle righe della tabella con i dati ottenuti dalla query-->
+					if ($result->num_rows > 0) {
+						while ($row = $result->fetch_assoc()) {
+							echo "<tr>";
+							echo "<td>" . $row["nome"] . "</td>";
+							echo "<td>" . $row["cognome"] . "</td>";
+							echo "<td>" . $row["luogoNascita"] . "</td>";
+							echo "<td>" . $row["totaleBonus"] . "</td>";
+							echo "</tr>";
+						}
+					} else {
+						echo "<tr><td colspan='3'>Nessun dato presente nel database</td></tr>";
+					}
+					
+					$conn->close();
+				?>
 			</tbody>
 		</table>
 	</div>
