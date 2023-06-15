@@ -10,120 +10,82 @@
 </head>
 
 <body>
-   <!-- freccia di ritorno -->
-   <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.html" class="back-button">
-   <i class="fas fa-arrow-left"></i> </a>
+<!-- freccia di ritorno -->
+<a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.html" class="back-button">
+  <i class="fas fa-arrow-left"></i> </a>
 
-  <!-- Intestazione della pagina -->
-  <h1>Profilo</h1>
+<!-- Intestazione della pagina -->
+<h1>Profilo</h1>
 
-  <!-- Bottone "Dati Personali" -->
-  <button onclick="showDatiPersonali()">Dati Personali</button>
+<!-- Bottone "Dati Personali" -->
+<button onclick="showDatiPersonali()">Dati Personali</button>
 
-  <!-- Bottone "Invita a Sondaggio" -->
-  <button onclick="showInvitaSondaggio()">Invita a Sondaggio</button>
-  
-  <!-- Bottone "Premi" -->
-<button onclick="showPremi()">Premi Ottenuti</button>
+<!-- Bottone "Invita a Sondaggio" -->
+<button onclick="showInvitaSondaggio()">Invita a Sondaggio</button>
 
-  <!-- Tabella Dati Personali (inizialmente nascosta) -->
-  <div id="datiPersonaliTable" style="display: none;">
-    <h2>Dati Personali</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Cognome</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Mario</td>
-          <td>Rossi</td>
-          <td>mario@example.com</td>
-        </tr>
-        <tr>
-          <td>Paola</td>
-          <td>Verdi</td>
-          <td>paola@example.com</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Tabella Invita a Sondaggio (inizialmente nascosta) -->
-  <div id="invitaSondaggioTable" style="display: none;">
-    <h2>Invita a Sondaggio</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Giovanni</td>
-          <td>giovanni@example.com</td>
-        </tr>
-        <tr>
-          <td>Sara</td>
-          <td>sara@example.com</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Tabella Premi Ottenuti (inizialmente nascosta) -->
-<div id="premiOttenutiTable" style="display: none;">
-  <h2>Premi Ottenuti</h2>
+<!-- Tabella Dati Personali (inizialmente nascosta) -->
+<div id="datiPersonaliTable" style="display: none;">
+  <h2>Dati Personali</h2>
+  <?php
+      $mysqli=new mysqli("localhost","root","", "sondaggi23");
+      $query= "SELECT * FROM utente";
+      $res= $mysqli->query($query) or die (mysqli_error($con));
+  ?>
   <table>
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>Descrizione</th>
-        <th>Foto</th>
-        <th>Punti Necessari</th>
-      </tr>
+    <tr>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Email</th>
+    </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Premio 1</td>
-        <td><img src="foto1.jpg" alt="Foto Premio 1"></td>
-        <td>100</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Premio 2</td>
-        <td><img src="foto2.jpg" alt="Foto Premio 2"></td>
-        <td>200</td>
-      </tr>
+    <?php while ($rowS= mysqli_fetch_array($res)): ?>
+    <tr>
+      <td><?php echo $rowS["nome"] ?></td>
+      <td><?php echo $rowS["cognome"] ?></td>
+      <td><?php echo $rowS["email"] ?></td>
+    </tr>
+    <?php endwhile; ?>
     </tbody>
   </table>
 </div>
 
-  <!-- Script JavaScript per mostrare/nascondere le tabelle -->
-  <script>
-    function showDatiPersonali() {
-      document.getElementById("datiPersonaliTable").style.display = "block";
-      document.getElementById("invitaSondaggioTable").style.display = "none";
-      document.getElementById("premiOttenutiTable").style.display = "none";
-    }
+<!-- Tabella Invita a Sondaggio (inizialmente nascosta) -->
+<div id="invitaSondaggioTable" style="display: none;">
+  <h2>Invita a Sondaggio</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Giovanni</td>
+      <td>giovanni@example.com</td>
+    </tr>
+    <tr>
+      <td>Sara</td>
+      <td>sara@example.com</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
-    function showInvitaSondaggio() {
-      document.getElementById("datiPersonaliTable").style.display = "none";
-      document.getElementById("invitaSondaggioTable").style.display = "block";
-      document.getElementById("premiOttenutiTable").style.display = "none";
-    }
-
-    function showPremi() {
-    document.getElementById("datiPersonaliTable").style.display = "none";
+<!-- Script JavaScript per mostrare/nascondere le tabelle -->
+<script>
+  function showDatiPersonali() {
+    document.getElementById("datiPersonaliTable").style.display = "block";
     document.getElementById("invitaSondaggioTable").style.display = "none";
-    document.getElementById("premiOttenutiTable").style.display = "block";
   }
-  </script>
+
+  function showInvitaSondaggio() {
+    document.getElementById("datiPersonaliTable").style.display = "none";
+    document.getElementById("invitaSondaggioTable").style.display = "block";
+  }
+</script>
 </body>
 
 </html>
