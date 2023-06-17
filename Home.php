@@ -5,6 +5,7 @@
     <title>Applicativo Web</title>
 </head>
 <body>
+    <!-- verifica se l'utente ha fatto il log in se no reindirizzamento a pagina di lo-->
     <?php
     session_start();
     if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
