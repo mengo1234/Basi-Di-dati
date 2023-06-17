@@ -11,7 +11,7 @@
 
 <body>
      <!-- freccia di ritorno -->
-     <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.html" class="back-button">
+     <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.php" class="back-button">
       <i class="fas fa-arrow-left"></i>
     </a>
 

@@ -139,7 +139,19 @@ CREATE TABLE InserimentoDomanda (
 
 /*FINE STRUTTURA DB*/
 
-/*POPOLAMENTO TABELLE*/
+-- Verifica se le tabelle sono già popolate
+SELECT COUNT(*) AS count_Utente FROM Utente;
+SELECT COUNT(*) AS count_Premio FROM Premio;
+SELECT COUNT(*) AS count_Domanda FROM Domanda;
+SELECT COUNT(*) AS count_Azienda FROM Azienda;
+
+
+/*codice di popolamento solo se le tabelle sono vuote*/
+IF count_Utente = 0 AND count_Premio = 0 AND count_Domanda = 0 AND count_Azienda = 0
+
+THEN
+
+                /*POPOLAMENTO TABELLE*/
 
 -- Popolamento della tabella Utente
 INSERT INTO Utente (email, nome, cognome, anno, luogoNascita, totaleBonus)
@@ -177,7 +189,9 @@ VALUES
     ('9876543210', 'Napoli'),
     ('5678901234', 'Torino');
 
-/*FINE POPOLAMENTO TABELLE*/
+                /*FINE POPOLAMENTO TABELLE*/
+END IF;
+
 
 /*STORED PROCEDURES*/
 
