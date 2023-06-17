@@ -15,7 +15,7 @@
   session_start();
   if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     // L'utente non è autenticato, mostra l'alert e reindirizza alla pagina di login
-    echo '<script>alert("Devi effettuare l\'accesso per visualizzare questa pagina."); window.location.href = "login.php";</script>';
+    echo '<script>alert("Devi effettuare l\'accesso per visualizzare questa pagina."); window.location.href = "PagineWeb/login.php";</script>';
     exit();
   }
   ?>
