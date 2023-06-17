@@ -10,6 +10,15 @@
 </head>
 
 <body>
+    <!-- verifica se l'utente ha fatto il log in se no reindirizzamento a pagina di login-->
+    <?php
+    session_start();
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        // L'utente non è autenticato, mostra l'alert e reindirizza alla pagina desiderata
+        echo '<script>alert("Devi effettuare l\'accesso per visualizzare questa pagina."); window.location.href = "login.php";</script>';
+        exit();
+    }?>
+
    <!-- freccia di ritorno -->
    <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.php" class="back-button">
    <i class="fas fa-arrow-left"></i> </a>

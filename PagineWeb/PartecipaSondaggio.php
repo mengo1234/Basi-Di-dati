@@ -10,10 +10,20 @@
 </head>
 
 <body>
-   <!-- freccia di ritorno -->
-   <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.php" class="back-button">
+      <!-- verifica se l'utente ha fatto il log in se no reindirizzamento a pagina di login-->
+  <?php
+  session_start();
+  if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    // L'utente non è autenticato, mostra l'alert e reindirizza alla pagina di login
+    echo '<script>alert("Devi effettuare l\'accesso per visualizzare questa pagina."); window.location.href = "login.php";</script>';
+    exit();
+  }
+  ?>
+
+  <!-- Freccia di ritorno -->
+  <a href="C:\Users\Administrator\Desktop\Basi-Di-dati\Home.php" class="back-button">
     <i class="fas fa-arrow-left"></i> </a>
-    
+
   <!-- Intestazione della pagina -->
   <h1>Partecipa a sondaggio</h1>
 
@@ -51,12 +61,13 @@
     </form>
   </div>
 
-  <!-- Script JavaScript per mostrare il form del quiz -->
+  <!-- Script JavaScript per reindirizzare alla pagina "gioca.php" con la tipologia selezionata -->
   <script>
-    // Aggiungiamo un evento al clic del bottone "GIOCA!"
     document.getElementById("giocaButton").addEventListener("click", function() {
-      // Al clic, visualizziamo il form del quiz
-      document.getElementById("quizForm").style.display = "block";
+      // Ottiene il valore della tipologia selezionata
+      var tipologia = document.getElementById("tipologiaSondaggio").value;
+      // Reindirizza alla pagina "gioca.php" con il parametro GET "tipologia"
+      window.location.href = "Quiz.php?tipologia=" + tipologia;
     });
   </script>
 </body>
