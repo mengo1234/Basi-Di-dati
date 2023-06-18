@@ -114,11 +114,12 @@ CREATE TABLE Contenuto (
 
 CREATE TABLE Creazione (
     codFiscale VARCHAR(255),
-    dominio VARCHAR(255),
-    codice VARCHAR(255),
+    codice INT(10) NOT NULL,    
+    dominio VARCHAR(50),
     email VARCHAR(255),
     FOREIGN KEY (codFiscale) REFERENCES Azienda(codFiscale),
-    FOREIGN KEY (dominio, codice) REFERENCES Sondaggio(dominio, codice),
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio),
     FOREIGN KEY (email) REFERENCES Premium(email)
 );
 
