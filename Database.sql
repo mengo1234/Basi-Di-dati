@@ -13,7 +13,8 @@ CREATE TABLE Utente (
     cognome VARCHAR(255),
     anno INT,
     luogoNascita VARCHAR(255),
-    totaleBonus DECIMAL(10,2)
+    totaleBonus DECIMAL(10,2),
+    INDEX email_index (email)
 );
 
 CREATE TABLE Premio (
