@@ -52,7 +52,8 @@ CREATE TABLE Sondaggio (
     maxUtenti INT,
     stato VARCHAR(255),
     dataChiusura DATE,
-    PRIMARY KEY (codice, dominio)
+    PRIMARY KEY (codice, dominio),
+    INDEX dom_index (dominio)
 );
 
 CREATE TABLE Domanda (
