@@ -103,10 +103,11 @@ CREATE TABLE Invito (
 );
 
 CREATE TABLE Contenuto (
-    dominio VARCHAR(255),
-    codice VARCHAR(255),
+    codice INT(10) NOT NULL,
+    dominio VARCHAR(50),
     id INT,
-    FOREIGN KEY (dominio, codice) REFERENCES Sondaggio(dominio, codice),
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio),
     FOREIGN KEY (id) REFERENCES Domanda(id)
 );
 
