@@ -89,6 +89,15 @@ CREATE TABLE Sondaggio (
     PRIMARY KEY (codice, Dominio)
 );
 
+CREATE TABLE Invito (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255),
+    Dominio VARCHAR(255),
+    esito VARCHAR(255),
+    FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
+);
+
 CREATE TABLE Interesse (
     email VARCHAR(255),
     Dominio VARCHAR(255),
@@ -96,14 +105,6 @@ CREATE TABLE Interesse (
     FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
 );
 
-CREATE TABLE Invito (
-    id INT PRIMARY KEY,
-    email VARCHAR(255),
-    Dominio VARCHAR(255),
-    esito VARCHAR(255),
-    FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
-);
 
 CREATE TABLE Contenuto (
     Dominio VARCHAR(255),
