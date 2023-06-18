@@ -44,7 +44,7 @@ CREATE TABLE Azienda (
 );
 
 CREATE TABLE Sondaggio (
-    codice INT AUTO_INCREMENT,
+    codice INT,
     dominio VARCHAR(255),
     descrizione TEXT,
     titolo VARCHAR(255),
