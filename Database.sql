@@ -90,8 +90,8 @@ CREATE TABLE Inserimento (
 CREATE TABLE Invito (
     id INT AUTO_INCREMENT,
     email VARCHAR(255),
-    dominio VARCHAR(255),
     codice INT,
+    dominio VARCHAR(255),
     esito VARCHAR(255),
     PRIMARY KEY (id, email, codice, dominio),
     FOREIGN KEY (email) REFERENCES Utente(email),
