@@ -93,11 +93,10 @@ CREATE TABLE Invito (
     dominio VARCHAR(255),
     codice INT,
     esito VARCHAR(255),
-    PRIMARY KEY (id, email, dominio, codice),
+    PRIMARY KEY (id, email, codice, dominio),
     FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio),
-    FOREIGN KEY (codice) REFERENCES Sondaggio(codice)
-
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
 );
 
 CREATE TABLE Contenuto (
