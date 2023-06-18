@@ -23,12 +23,6 @@ CREATE TABLE Premio (
     punti INT
 );
 
-CREATE TABLE Storico (
-    email VARCHAR(255),
-    nome VARCHAR(255),
-    FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (nome) REFERENCES Premio(nome)
-);
 
 CREATE TABLE Amministratore (
     email VARCHAR(255) PRIMARY KEY,
@@ -42,6 +36,23 @@ CREATE TABLE Premium (
     dataInizioAbbonamento DATE,
     dataFineAbbonamento DATE,
     FOREIGN KEY (email) REFERENCES Utente(email)
+);
+
+CREATE TABLE Azienda (
+    codFiscale VARCHAR(255) PRIMARY KEY,
+    sede VARCHAR(255)
+);
+
+CREATE TABLE Sondaggio (
+    codice INT AUTO_INCREMENT,
+    dominio VARCHAR(255),
+    descrizione TEXT,
+    titolo VARCHAR(255),
+    dataCreazione DATE,
+    maxUtenti INT,
+    stato VARCHAR(255),
+    dataChiusura DATE,
+    PRIMARY KEY (codice, Dominio)
 );
 
 CREATE TABLE Domanda (
@@ -76,19 +87,6 @@ CREATE TABLE Inserimento (
     FOREIGN KEY (nome) REFERENCES Premio(nome)
 );
 
-
-CREATE TABLE Sondaggio (
-    codice INT AUTO_INCREMENT,
-    Dominio VARCHAR(255),
-    descrizione TEXT,
-    titolo VARCHAR(255),
-    dataCreazione DATE,
-    maxUtenti INT,
-    stato VARCHAR(255),
-    dataChiusura DATE,
-    PRIMARY KEY (codice, Dominio)
-);
-
 CREATE TABLE Invito (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255),
@@ -98,14 +96,6 @@ CREATE TABLE Invito (
     FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
 );
 
-CREATE TABLE Interesse (
-    email VARCHAR(255),
-    Dominio VARCHAR(255),
-    FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
-);
-
-
 CREATE TABLE Contenuto (
     Dominio VARCHAR(255),
     codice VARCHAR(255),
@@ -114,10 +104,6 @@ CREATE TABLE Contenuto (
     FOREIGN KEY (id) REFERENCES Domanda(id)
 );
 
-CREATE TABLE Azienda (
-    codFiscale VARCHAR(255) PRIMARY KEY,
-    sede VARCHAR(255)
-);
 
 CREATE TABLE Creazione (
     codFiscale VARCHAR(255),
@@ -136,6 +122,20 @@ CREATE TABLE InserimentoDomanda (
     FOREIGN KEY (codFiscale) REFERENCES Azienda(codFiscale),
     FOREIGN KEY (id) REFERENCES Domanda(id),
     FOREIGN KEY (email) REFERENCES Premium(email)
+);
+
+CREATE TABLE Storico (
+    email VARCHAR(255),
+    nome VARCHAR(255),
+    FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (nome) REFERENCES Premio(nome)
+);
+
+CREATE TABLE Interesse (
+    email VARCHAR(255),
+    dominio VARCHAR(255),
+    FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
 );
 
 /*FINE STRUTTURA DB*/
