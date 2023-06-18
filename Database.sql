@@ -88,14 +88,16 @@ CREATE TABLE Inserimento (
 );
 
 CREATE TABLE Invito (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT AUTO_INCREMENT,
     email VARCHAR(255),
     dominio VARCHAR(255),
     codice INT,
     esito VARCHAR(255),
+    PRIMARY KEY (id, email, dominio, codice),
     FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
-    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio),
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice)
+
 );
 
 CREATE TABLE Contenuto (
