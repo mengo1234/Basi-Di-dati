@@ -44,15 +44,14 @@ CREATE TABLE Azienda (
 );
 
 CREATE TABLE Sondaggio (
-    codice INT AUTO_INCREMENT,
-    dominio VARCHAR(255),
+    codice INT AUTO_INCREMENT PRIMARY KEY,
+    dominio VARCHAR(255) PRIMARY KEY,
     descrizione TEXT,
     titolo VARCHAR(255),
     dataCreazione DATE,
     maxUtenti INT,
     stato VARCHAR(255),
-    dataChiusura DATE,
-    PRIMARY KEY (codice, Dominio)
+    dataChiusura DATE
 );
 
 CREATE TABLE Domanda (
@@ -90,28 +89,28 @@ CREATE TABLE Inserimento (
 CREATE TABLE Invito (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255),
-    Dominio VARCHAR(255),
+    dominio VARCHAR(255),
     esito VARCHAR(255),
     FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
+    FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
 );
 
 CREATE TABLE Contenuto (
-    Dominio VARCHAR(255),
+    dominio VARCHAR(255),
     codice VARCHAR(255),
     id INT,
-    FOREIGN KEY (Dominio, codice) REFERENCES Sondaggio(Dominio, codice),
+    FOREIGN KEY (dominio, codice) REFERENCES Sondaggio(dominio, codice),
     FOREIGN KEY (id) REFERENCES Domanda(id)
 );
 
 
 CREATE TABLE Creazione (
     codFiscale VARCHAR(255),
-    Dominio VARCHAR(255),
+    dominio VARCHAR(255),
     codice VARCHAR(255),
     email VARCHAR(255),
     FOREIGN KEY (codFiscale) REFERENCES Azienda(codFiscale),
-    FOREIGN KEY (Dominio, codice) REFERENCES Sondaggio(Dominio, codice),
+    FOREIGN KEY (dominio, codice) REFERENCES Sondaggio(dominio, codice),
     FOREIGN KEY (email) REFERENCES Premium(email)
 );
 
@@ -347,7 +346,7 @@ CREATE PROCEDURE CreazioneSondaggio(
     IN p_stato VARCHAR(255)
 )
 BEGIN
-    INSERT INTO Sondaggio (Dominio, titolo, descrizione, dataCreazione, dataChiusura, maxUtenti, stato)
+    INSERT INTO Sondaggio (dominio, titolo, descrizione, dataCreazione, dataChiusura, maxUtenti, stato)
     VALUES (p_parolaChiave, p_titolo, p_descrizione, p_dataCreazione, p_dataChiusura, p_maxUtenti, p_stato);
 END //
 
