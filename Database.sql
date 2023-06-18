@@ -44,8 +44,8 @@ CREATE TABLE Azienda (
 );
 
 CREATE TABLE Sondaggio (
-    codice INT,
-    dominio VARCHAR(255),
+    codice INT(10) NOT NULL,
+    dominio VARCHAR(50),
     descrizione TEXT,
     titolo VARCHAR(255),
     dataCreazione DATE,
@@ -90,8 +90,8 @@ CREATE TABLE Inserimento (
 CREATE TABLE Invito (
     id INT AUTO_INCREMENT,
     email VARCHAR(255),
-    codice INT,
-    dominio VARCHAR(255),
+    codice INT(10),
+    dominio VARCHAR(50),
     esito VARCHAR(255),
     PRIMARY KEY (id, email, codice, dominio),
     FOREIGN KEY (email) REFERENCES Utente(email),
