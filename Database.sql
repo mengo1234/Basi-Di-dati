@@ -76,12 +76,6 @@ CREATE TABLE Inserimento (
     FOREIGN KEY (nome) REFERENCES Premio(nome)
 );
 
-CREATE TABLE Interesse (
-    email VARCHAR(255),
-    Dominio VARCHAR(255),
-    FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
-);
 
 CREATE TABLE Sondaggio (
     codice VARCHAR(255) AUTO_INCREMENT,
@@ -93,6 +87,13 @@ CREATE TABLE Sondaggio (
     stato VARCHAR(255),
     dataChiusura DATE,
     PRIMARY KEY (codice, Dominio)
+);
+
+CREATE TABLE Interesse (
+    email VARCHAR(255),
+    Dominio VARCHAR(255),
+    FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
 );
 
 CREATE TABLE Invito (
