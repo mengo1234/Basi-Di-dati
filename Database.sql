@@ -78,9 +78,9 @@ CREATE TABLE Inserimento (
 
 CREATE TABLE Interesse (
     email VARCHAR(255),
-    parolaChiave VARCHAR(255),
+    Dominio VARCHAR(255),
     FOREIGN KEY (email) REFERENCES Utente(email),
-    FOREIGN KEY (parolaChiave) REFERENCES Sondaggio(Dominio)
+    FOREIGN KEY (Dominio) REFERENCES Sondaggio(Dominio)
 );
 
 CREATE TABLE Sondaggio (
