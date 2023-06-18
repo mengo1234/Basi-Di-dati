@@ -44,14 +44,15 @@ CREATE TABLE Azienda (
 );
 
 CREATE TABLE Sondaggio (
-    codice INT AUTO_INCREMENT PRIMARY KEY,
-    dominio VARCHAR(255) PRIMARY KEY,
+    codice INT AUTO_INCREMENT,
+    dominio VARCHAR(255),
     descrizione TEXT,
     titolo VARCHAR(255),
     dataCreazione DATE,
     maxUtenti INT,
     stato VARCHAR(255),
-    dataChiusura DATE
+    dataChiusura DATE,
+    PRIMARY KEY (codice, dominio)
 );
 
 CREATE TABLE Domanda (
@@ -90,8 +91,10 @@ CREATE TABLE Invito (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255),
     dominio VARCHAR(255),
+    codice INT,
     esito VARCHAR(255),
     FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
     FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
 );
 
