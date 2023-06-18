@@ -78,7 +78,7 @@ CREATE TABLE Inserimento (
 
 
 CREATE TABLE Sondaggio (
-    codice VARCHAR(255) AUTO_INCREMENT,
+    codice INT AUTO_INCREMENT,
     Dominio VARCHAR(255),
     descrizione TEXT,
     titolo VARCHAR(255),
