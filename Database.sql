@@ -63,8 +63,7 @@ CREATE TABLE Chiusa (
 );
 
 CREATE TABLE Opzione (
-   idOpzione INT PRIMARY KEY AUTO_INCREMENT,
-   numProgressivo INT PRIMARY KEY,
+   numProgressivo INT PRIMARY KEY AUTO_INCREMENT,
     testo TEXT,
     id INT,
     FOREIGN KEY (id) REFERENCES Chiusa(id)
