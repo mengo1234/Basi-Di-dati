@@ -5,35 +5,45 @@
     <title>Applicativo Web</title>
 </head>
 <body>
-    <!-- verifica se l'utente ha fatto il log in se no reindirizzamento a pagina di lo-->
-    <?php
-    session_start();
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-        // L'utente non è autenticato, mostra l'alert e reindirizza alla pagina desiderata
-        echo '<script>alert("Devi effettuare l\'accesso per visualizzare questa pagina."); window.location.href = "PagineWeb/login.php";</script>';
-        exit();
-    }?>
 
     <!-- Titolo e contenitore della tabella -->
     <h1>WALL OF FAME</h1>
     <div id="table-container">
 
         <?php
-        /* Connessione al database e esecuzione della query */
-        $servername = "localhost";
-        $username = "user";
-        $password = "";
-        $dbname = "Sondaggi23";
+                /* Connessione al database e esecuzione della query */
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "Sondaggi23";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
-        if ($conn->connect_error) {
-            die("Connessione al database fallita: " . $conn->connect_error);
-        }
+                if ($conn->connect_error) {
+                    die("Connessione al database fallita: " . $conn->connect_error);
+                }
 
-        /* Creazione della vista ordinata in base al totBonus decrescente */
-        $query = "CREATE VIEW VistaUtente AS SELECT * FROM Utente ORDER BY totaleBonus DESC";
-        $result = $conn->query($query);
+                    /* Creazione della vista ordinata in base al totBonus decrescente */
+            $query = "CREATE OR REPLACE VIEW VistaUtente AS SELECT * FROM Utente ORDER BY totaleBonus DESC";
+            $result = $conn->query($query);
+        ?>
+
+        <?php
+
+            echo '<h1>Benvenuto!</h1>';
+
+            echo '
+                <!-- Menù di selezione -->
+                <div id="menu">
+                    <select onchange="navigate()">
+                        <option value="default" selected>Seleziona</option>
+                        <option value="login-register">Accedi/Registrati</option>
+                        <option value="profile">Profilo</option>
+                        <option value="quiz">Partecipa a un QUIZ</option>
+                        <option value="Crea Sondaggio">Crea un Quiz</option>
+                    </select>
+                </div>';
+
         ?>
 
         <table>
@@ -66,77 +76,6 @@
             </tbody>
         </table>
     </div>
-
-<?php
-    // Verifica del tipo di utente
-    if ($_SESSION['user_role'] === 'amministratore') {
-        // Mostra i contenuti specifici per gli utenti amministratori
-        echo '<h1>Benvenuto Amministratore!</h1>';
-
-        echo '
-        <!-- Menù di selezione -->
-        <div id="menu">
-            <select onchange="navigate()">
-                <option value="default" selected>Seleziona</option>
-                <option value="login-register">Accedi/Registrati</option>
-                <option value="profile">Profilo</option>
-                <option value="quiz">Partecipa a un QUIZ</option>
-                <option value="Crea Sondaggio">Crea un Quiz</option>
-            </select>
-        </div>';
-
-    } elseif ($_SESSION['user_role'] === 'azienda') {
-
-        // Mostra i contenuti specifici per gli utenti azienda
-        echo '<h1>Benvenuto Utente Azienda!</h1>';
-        
-        echo '
-        <!-- Menù di selezione -->
-        <div id="menu">
-            <select onchange="navigate()">
-                <option value="default" selected>Seleziona</option>
-                <option value="login-register">Accedi/Registrati</option>
-                <option value="profile">Profilo</option>
-                <option value="quiz">Partecipa a un QUIZ</option>
-                <option value="Crea Sondaggio">Crea un Quiz</option>
-            </select>
-        </div>';
-    
-    } elseif ($_SESSION['user_role'] === 'premium') {
-       
-        // Mostra i contenuti specifici per gli utenti premium
-       
-        echo '<h1>Benvenuto Utente Premium!</h1>';
-        
-        echo '
-        <!-- Menù di selezione -->
-        <div id="menu">
-            <select onchange="navigate()">
-                <option value="default" selected>Seleziona</option>
-                <option value="login-register">Accedi/Registrati</option>
-                <option value="profile">Profilo</option>
-                <option value="quiz">Partecipa a un QUIZ</option>
-            </select>
-        </div>';       
-    
-    } else {
-        
-        // Mostra i contenuti per gli utenti normali
-        
-        echo '<h1>Benvenuto Utente Normale!</h1>';
-        
-        echo '
-        <!-- Menù di selezione -->
-        <div id="menu">
-            <select onchange="navigate()">
-                <option value="default" selected>Seleziona</option>
-                <option value="login-register">Accedi/Registrati</option>
-                <option value="profile">Profilo</option>
-                <option value="quiz">Partecipa a un QUIZ</option>
-            </select>
-        </div>';
-    }
-    ?>
 
     <script>
         function navigate() {
