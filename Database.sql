@@ -184,13 +184,13 @@ VALUES
     ('Premio5', 'Descrizione premio 5', 'foto5.jpg', 80);
 
 -- Popolamento della tabella Domanda
-INSERT INTO Domanda (id, testo, punteggio, foto)
+INSERT INTO Domanda (testo, punteggio, foto)
 VALUES
-    (1, 'Testo domanda 1', 10, 'foto_domanda1.jpg'),
-    (2, 'Testo domanda 2', 5, 'foto_domanda2.jpg'),
-    (3, 'Testo domanda 3', 8, 'foto_domanda3.jpg'),
-    (4, 'Testo domanda 4', 3, 'foto_domanda4.jpg'),
-    (5, 'Testo domanda 5', 7, 'foto_domanda5.jpg');
+    ('Testo domanda 1', 10, 'foto_domanda1.jpg'),
+    ('Testo domanda 2', 5, 'foto_domanda2.jpg'),
+    ('Testo domanda 3', 8, 'foto_domanda3.jpg'),
+    ('Testo domanda 4', 3, 'foto_domanda4.jpg'),
+    ('Testo domanda 5', 7, 'foto_domanda5.jpg');
 
 -- Popolamento della tabella Azienda
 INSERT INTO Azienda (codFiscale, sede)
