@@ -151,14 +151,14 @@ CREATE TABLE Interesse (
 /*FINE STRUTTURA DB*/
 
 -- Verifica se le tabelle sono già popolate
-SELECT COUNT(*) AS count_Utente FROM Utente;
-SELECT COUNT(*) AS count_Premio FROM Premio;
-SELECT COUNT(*) AS count_Domanda FROM Domanda;
-SELECT COUNT(*) AS count_Azienda FROM Azienda;
-
 
 /*codice di popolamento solo se le tabelle sono vuote*/
-IF count_Utente = 0 AND count_Premio = 0 AND count_Domanda = 0 AND count_Azienda = 0
+IF (
+    (SELECT COUNT(*) FROM Utente) = 0 AND
+    (SELECT COUNT(*) FROM Premio) = 0 AND
+    (SELECT COUNT(*) FROM Domanda) = 0 AND
+    (SELECT COUNT(*) FROM Azienda) = 0
+)
 
 THEN
 
