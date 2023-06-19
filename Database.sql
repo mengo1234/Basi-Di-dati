@@ -207,6 +207,7 @@ END //
 
 DELIMITER ;
 
+CALL PopolamentoTabelle();
 /*STORED PROCEDURES*/
 
     /*INSERIMENTO UTENTE GENERICO*/
