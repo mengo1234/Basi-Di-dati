@@ -1,6 +1,6 @@
 <?php
 // Connessione al database
-$conn = new mysqli("localhost", "username", "password", "Sondaggi23");
+$conn = new mysqli("localhost", "root", "", "Sondaggi24");
 
 // Verifica della connessione
 if ($conn->connect_error) {
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Bind dei parametri
-    $stmt->bind_param("SIsissss", $dominio, $codice, $testo, $punteggio, $foto, $testo_opzione1, $testo_opzione2, $testo_opzione3);
+    $stmt->bind_param("sisissss", $dominio, $codice, $testo, $punteggio, $foto, $testo_opzione1, $testo_opzione2, $testo_opzione3);
 
         // Esecuzione dello statement
         if ($stmt->execute()) {

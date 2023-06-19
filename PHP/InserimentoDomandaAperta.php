@@ -2,9 +2,9 @@
 
 // Connessione al database
 $servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "Sondaggi23";
+$username = "root";
+$password = "";
+$dbname = "Sondaggi24";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
