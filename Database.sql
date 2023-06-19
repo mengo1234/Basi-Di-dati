@@ -1,14 +1,15 @@
 /*CREAZIONE STRUTTURA DB*/
 
 -- Creazione del database
-CREATE DATABASE IF NOT EXISTS Sondaggi23;
+CREATE DATABASE IF NOT EXISTS Sondaggi24;
 
 -- Seleziona il database
-USE Sondaggi23;
+USE Sondaggi24;
 
 -- Creazione delle tabelle
 CREATE TABLE Utente (
     email VARCHAR(255) PRIMARY KEY,
+    `password` VARCHAR(255),
     nome VARCHAR(255),
     cognome VARCHAR(255),
     anno INT,
@@ -44,12 +45,16 @@ CREATE TABLE Premium (
     FOREIGN KEY (email) REFERENCES Utente(email)
 );
 
+-- -- --
 CREATE TABLE Domanda (
     id INT PRIMARY KEY AUTO_INCREMENT,
     testo TEXT,
     punteggio INT,
     foto VARCHAR(255)
 );
+CREATE INDEX idx_domanda_id ON Domanda(id);
+
+-- -- --
 
 CREATE TABLE Aperta (
     id INT,
@@ -63,10 +68,10 @@ CREATE TABLE Chiusa (
 );
 
 CREATE TABLE Opzione (
-   idOpzione INT PRIMARY KEY AUTO_INCREMENT,
+   id INT AUTO_INCREMENT,
    numProgressivo INT PRIMARY KEY,
     testo TEXT,
-    id INT,
+    idOpzione INT ,
     FOREIGN KEY (id) REFERENCES Chiusa(id)
 );
 
@@ -84,8 +89,10 @@ CREATE TABLE Interesse (
     FOREIGN KEY (parolaChiave) REFERENCES Sondaggio(parolaChiave)
 );
 
+-- -- --
+
 CREATE TABLE Sondaggio (
-    codice VARCHAR(255) AUTO_INCREMENT,
+    codice INT AUTO_INCREMENT PRIMARY KEY,
     Dominio VARCHAR(255),
     descrizione TEXT,
     titolo VARCHAR(255),
@@ -93,8 +100,11 @@ CREATE TABLE Sondaggio (
     maxUtenti INT,
     stato VARCHAR(255),
     dataChiusura DATE,
-    PRIMARY KEY (codice, Dominio)
+    UNIQUE (codice, Dominio)
 );
+CREATE INDEX idx_sondaggio_codice_dominio ON Sondaggio(Dominio, codice);
+
+-- -- --
 
 CREATE TABLE Invito (
     id INT PRIMARY KEY,
@@ -112,6 +122,8 @@ CREATE TABLE Contenuto (
     FOREIGN KEY (Dominio, codice) REFERENCES Sondaggio(Dominio, codice),
     FOREIGN KEY (id) REFERENCES Domanda(id)
 );
+
+
 
 CREATE TABLE Azienda (
     codFiscale VARCHAR(255) PRIMARY KEY,
@@ -139,7 +151,19 @@ CREATE TABLE InserimentoDomanda (
 
 /*FINE STRUTTURA DB*/
 
-/*POPOLAMENTO TABELLE*/
+-- Verifica se le tabelle sono già popolate
+SELECT COUNT(*) AS count_Utente FROM Utente;
+SELECT COUNT(*) AS count_Premio FROM Premio;
+SELECT COUNT(*) AS count_Domanda FROM Domanda;
+SELECT COUNT(*) AS count_Azienda FROM Azienda;
+
+
+/*codice di popolamento solo se le tabelle sono vuote*/
+IF count_Utente = 0 AND count_Premio = 0 AND count_Domanda = 0 AND count_Azienda = 0
+
+THEN
+
+                /*POPOLAMENTO TABELLE*/
 
 -- Popolamento della tabella Utente
 INSERT INTO Utente (email, nome, cognome, anno, luogoNascita, totaleBonus)
@@ -177,23 +201,25 @@ VALUES
     ('9876543210', 'Napoli'),
     ('5678901234', 'Torino');
 
-/*FINE POPOLAMENTO TABELLE*/
+                /*FINE POPOLAMENTO TABELLE*/
+END IF;
 
-/*STORED PROCEDURES*/
+    /*STORED PROCEDURES*/
 
     /*INSERIMENTO UTENTE GENERICO*/
 
     DELIMITER //
 CREATE PROCEDURE CreazioneUtente(
     IN p_email VARCHAR(255),
+    IN p_password VARCHAR(255),
     IN p_nome VARCHAR(255),
     IN p_cognome VARCHAR(255),
     IN p_anno INT,
     IN p_luogoNascita VARCHAR(255)
 )
 BEGIN
-    INSERT INTO Utente (email, nome, cognome, anno, luogoNascita, totaleBonus)
-    VALUES (p_email, p_nome, p_cognome, p_anno, p_luogoNascita, 0);
+    INSERT INTO Utente (email, password, nome, cognome, anno, luogoNascita, totaleBonus)
+    VALUES (p_email,p_password, p_nome, p_cognome, p_anno, p_luogoNascita, 0);
     
     SELECT LAST_INSERT_ID() AS new_user_id;
 END //
@@ -286,7 +312,7 @@ DELIMITER //
 
 CREATE PROCEDURE CreazioneDomandaChiusa (
     IN p_dominio VARCHAR(255),
-    IN p-codice INT,
+    IN p_codice INT,
     IN p_testo VARCHAR(255),
     IN p_punteggio INT,
     IN p_foto VARCHAR(255),
