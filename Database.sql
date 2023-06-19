@@ -149,11 +149,12 @@ CREATE TABLE Interesse (
 );
 
 /*FINE STRUTTURA DB*/
-/*
+DELIMITER //
+CREATE PROCEDURE PopolamentoTabelle()
+BEGIN
 -- Verifica se le tabelle sono già popolate
-
 /*codice di popolamento solo se le tabelle sono vuote*/
-/*IF (
+IF (
     (SELECT COUNT(*) FROM Utente) = 0 AND
     (SELECT COUNT(*) FROM Premio) = 0 AND
     (SELECT COUNT(*) FROM Domanda) = 0 AND
@@ -165,7 +166,7 @@ THEN
                 /*POPOLAMENTO TABELLE*/
 
 -- Popolamento della tabella Utente
-/*INSERT INTO Utente (email, nome, cognome, anno, luogoNascita, totaleBonus)
+INSERT INTO Utente (email, nome, cognome, anno, luogoNascita, totaleBonus)
 VALUES
     ('utente1@example.com', 'Mario', 'Rossi', 1990, 'Roma', 100.00),
     ('utente2@example.com', 'Laura', 'Bianchi', 1985, 'Milano', 50.00),
@@ -201,8 +202,10 @@ VALUES
     ('5678901234', 'Torino');
 
                 /*FINE POPOLAMENTO TABELLE*/
-/*END IF;
+END IF;
+END //
 
+DELIMITER ;
 
 /*STORED PROCEDURES*/
 
