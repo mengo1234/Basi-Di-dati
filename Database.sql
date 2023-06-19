@@ -141,8 +141,10 @@ CREATE TABLE Storico (
 
 CREATE TABLE Interesse (
     email VARCHAR(255),
-    dominio VARCHAR(255),
+    codice INT(10) NOT NULL,
+    dominio VARCHAR(50),
     FOREIGN KEY (email) REFERENCES Utente(email),
+    FOREIGN KEY (codice) REFERENCES Sondaggio(codice),
     FOREIGN KEY (dominio) REFERENCES Sondaggio(dominio)
 );
 
